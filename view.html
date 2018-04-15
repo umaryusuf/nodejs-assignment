@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Quotes.ng</title>
+    <style>
+      h1, p
+      {
+        padding : 9px;
+      }
+      h1 
+      {
+        font-weight: 300;
+      }
+      input, textarea, button
+      {
+        border : 1px solid #BBB;
+        padding : 9px;
+        min-width : 250px;
+        border-radius : 9px;   
+      }
+      ul{
+        list-style-type: none;
+        width: 250px;
+
+      }
+      ul li h4 {
+        margin-bottom: 0;
+      }
+    </style>
+    <body>
+      <center>
+        <form action="/send" method="post">
+        <h1>Quotes.ng</h1>
+        <p>
+          <input type="text" name="name" placeholder="Name" />
+        </p>
+        <p>
+          <textarea placeholder="Quotes" name="quote" ></textarea>
+        </p>
+        <p><button type="submit">Send</button></p>
+      </form>  
+      <ul>
+      </ul>
+    </center>
+    <script>
+      const request = fetch('http://localhost:3090/quotes')
+      .then((res) => res.json()
+      .then((data) => {
+        let output = "";
+
+        data.forEach(quote => {
+          output += `
+            <li>
+              <h4>Title: ${quote.name}</h4>
+              <div>Quote: ${quote.quote}</div>
+            </li>`;
+        });
+
+        document.querySelector('ul').innerHTML = output;
+       
+      }))
+ 
+    </script>
+    </body>
+  </head>
+</html>
